@@ -233,7 +233,7 @@ export function runSimulation(
     INSERT INTO audit_logs (id, action, entity_type, entity_id, details)
     VALUES (?, 'SIMULATION_RUN', 'simulation', ?, ?)
   `).run(
-    require('uuid').v4(),
+    uuidv4(),
     productId,
     JSON.stringify({
       concurrentRequests,

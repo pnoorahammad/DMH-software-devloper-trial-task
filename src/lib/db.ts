@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 const DB_DIR = path.join(process.cwd(), 'data');
 const DB_PATH = path.join(DB_DIR, 'inventory.db');
@@ -71,15 +72,13 @@ function seedIfEmpty(db: Database.Database) {
   const count = (db.prepare('SELECT COUNT(*) as c FROM products').get() as { c: number }).c;
   if (count > 0) return;
 
-  const { v4: uuidv4 } = require('uuid');
-
   const products = [
     { id: uuidv4(), name: 'Sony WH-1000XM5 Headphones', sku: 'SNY-WH1000XM5', price: 349.99, quantity: 25, category: 'Electronics' },
     { id: uuidv4(), name: 'Apple iPad Pro 12.9"', sku: 'APL-IPADPRO12', price: 1099.00, quantity: 15, category: 'Electronics' },
     { id: uuidv4(), name: 'Samsung 65" QLED TV', sku: 'SMS-QLED65', price: 1299.99, quantity: 8, category: 'Electronics' },
     { id: uuidv4(), name: 'Nike Air Max 270', sku: 'NKE-AM270-10', price: 149.99, quantity: 50, category: 'Footwear' },
     { id: uuidv4(), name: 'Adidas Ultraboost 22', sku: 'ADI-UB22-9', price: 189.99, quantity: 35, category: 'Footwear' },
-    { id: uuidv4(), name: 'Levi\'s 501 Original Jeans', sku: 'LVS-501-32', price: 79.99, quantity: 60, category: 'Apparel' },
+    { id: uuidv4(), name: "Levi's 501 Original Jeans", sku: 'LVS-501-32', price: 79.99, quantity: 60, category: 'Apparel' },
     { id: uuidv4(), name: 'Instant Pot Duo 7-in-1', sku: 'IP-DUO7-6QT', price: 99.95, quantity: 20, category: 'Kitchen' },
     { id: uuidv4(), name: 'Dyson V15 Vacuum', sku: 'DYS-V15-DETECT', price: 749.99, quantity: 12, category: 'Home' },
     { id: uuidv4(), name: 'Kindle Paperwhite 5', sku: 'AMZ-KPW5-8G', price: 139.99, quantity: 5, category: 'Electronics' },
