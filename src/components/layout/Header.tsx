@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Menu, X, Shield, ExternalLink, LayoutDashboard, Package, ShoppingCart, Zap, BarChart3, ScrollText } from 'lucide-react';
+import { Menu, X, Shield, ExternalLink, LayoutDashboard, Package, ShoppingCart, Zap, BarChart3, ScrollText, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const NAV = [
   { href: '/',           label: 'Dashboard',  icon: LayoutDashboard },
@@ -26,6 +27,7 @@ const PAGE_TITLES: Record<string, { title: string; desc: string }> = {
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
   const page = PAGE_TITLES[pathname] || { title: 'Inventory OS', desc: '' };
 
   return (
@@ -79,6 +81,16 @@ export default function Header() {
             <ExternalLink size={11} />
             Built for Digital Heroes
           </a>
+
+          {/* Theme toggle */}
+          <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="btn btn-ghost btn-sm"
+            style={{ padding: '.375rem', borderRadius: '50%' }}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
 
           {/* User pill */}
           <div style={{
